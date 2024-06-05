@@ -1,0 +1,26 @@
+<mat-form-field style="width: 100%">
+  <mat-label>Allgemeine Suche</mat-label>
+  <mat-chip-grid #chipGrid aria-label="Enter Search" style="font-size: 12px">
+    <mat-chip-row (removed)="remove(option)" *ngFor="let option of selectedFilterOptions">
+      <div style="max-width: 60vw; overflow: hidden; text-overflow: ellipsis">
+        {{option.value}}
+      </div>
+      <button matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </mat-chip-row>
+    <input [matAutocomplete]="autoGroup"
+           #filterOptionGroupInput
+           [formControl]="filterOptionFormControl"
+           [matChipInputFor]="chipGrid"
+           matInput>
+    <mat-autocomplete #autoGroup="matAutocomplete">
+      <mat-optgroup *ngFor="let group of filteredOptionGroups$ | async" [label]="group.name" style="font-weight: bold">
+        <mat-option (click)="selected(pair, group.name)" *ngFor="let pair of group.pairs" [value]="pair.value"
+                    style="font-weight: normal">
+          {{pair.value}}
+        </mat-option>
+      </mat-optgroup>
+    </mat-autocomplete>
+  </mat-chip-grid>
+</mat-form-field>

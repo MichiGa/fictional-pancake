@@ -1,0 +1,24 @@
+<form *ngIf="options.length > 0">
+  <mat-form-field>
+    <mat-label>{{label}}</mat-label>
+
+    <mat-chip-grid #chipGrid style="font-size: 12px">
+      <mat-chip-row (removed)="remove(option)" *ngFor="let option of selectedOptions">
+        {{option}}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
+
+    <input #optionInput [formControl]="optionControl"
+           [matAutocomplete]="auto" [matChipInputFor]="chipGrid"/>
+
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option" style="font-size: 13px">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+
+  </mat-form-field>
+</form>

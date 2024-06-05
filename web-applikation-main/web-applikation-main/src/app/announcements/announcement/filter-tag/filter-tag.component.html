@@ -1,0 +1,9 @@
+<div (click)="$event.stopPropagation()"
+     [ngStyle]="{'background-color': isSelected ? 'rgba(237,102,0,0.41)' : null }"
+     style="padding: 2px; background-color: lightgrey; border-radius: 5px; cursor: pointer">
+  <div (click)="onClickTag()">
+    {{tagName}}
+  </div>
+</div>
+
+

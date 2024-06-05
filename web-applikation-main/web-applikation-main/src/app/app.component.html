@@ -1,0 +1,51 @@
+<mat-toolbar role="heading" style="position: fixed; z-index: 2">
+  <mat-toolbar-row>
+    <mat-icon (click)="drawer.toggle()" *ngIf="!drawer.opened" matTooltip="Filter öffnen"
+              style="cursor: pointer; position: absolute">
+      filter_list
+    </mat-icon>
+    <mat-icon (click)="drawer.toggle()" *ngIf="drawer.opened" matTooltip="Filter schließen"
+              style="cursor: pointer; position: absolute">
+      filter_list
+    </mat-icon>
+    <img *ngIf="!isInIFrame"
+         ngSrc="assets/1280px-Signet_unibw.svg.png"
+         style="max-height: 40px; width: auto; margin-left: 40px; margin-right: 40px" alt="image" height="247"
+         width="1280">
+    <div style="margin-left: auto">
+      <span *ngIf="viewportWidth > 600"
+            style="font-weight: bold; margin-right: 10px">Themen für Studentische Arbeiten</span>
+      <mat-icon (click)="clickOnInfoIcon()" matTooltip="Mehr Infos" style="cursor: pointer; vertical-align: bottom">
+        info
+      </mat-icon>
+    </div>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="viewportWidth <= 600">
+    <span style="font-weight: bold">Themen für Studentische Arbeiten</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+
+<mat-drawer-container autosize class="announcement_list_top" hasBackdrop="true"
+                      style="margin-bottom: 50px; min-height: calc(100vh - 75px)">
+  <mat-drawer #drawer class="announcement_list_top" mode="over" style="position: fixed; padding: 10px">
+    <app-announcements-filter></app-announcements-filter>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-announcement-list></app-announcement-list>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<mat-toolbar class="footer" *ngIf="!isInIFrame">
+  <div style="display: flex; flex-direction: row; flex-wrap: wrap">
+    <div>
+      Universität der Bundeswehr München &nbsp;
+    </div>
+    <div>
+      Werner-Heisenberg-Weg 39 &nbsp;
+    </div>
+    <div>
+      85577 Neubiberg
+    </div>
+  </div>
+</mat-toolbar>

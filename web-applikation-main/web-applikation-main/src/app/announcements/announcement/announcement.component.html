@@ -1,0 +1,108 @@
+<div
+  (click)="navigateToDetailsComponent()"
+  class="card mb-4 shadow-sm"
+  style="cursor: pointer; border-radius: 15px; overflow: hidden"
+>
+  <div style="position: relative; height: 200px">
+    <div
+      class="announcement_state"
+      [ngStyle]="{ 'background-color': getAnnouncementStateBackgroundColor() }"
+    >
+      <app-filter-tag [queryParamKey]="'state'" [tagName]="announcement.state">
+      </app-filter-tag>
+    </div>
+    <img
+      *ngIf="announcement.imageSrc"
+      alt="image"
+      height="100%"
+      src="{{ announcement.imageSrc }}"
+      style="object-fit: cover"
+      width="100%"
+    />
+    <div
+      *ngIf="!announcement.imageSrc"
+      style="height: 200px; width: 100%"
+    ></div>
+    <div class="announcement_title">
+      {{ announcement.title }}
+    </div>
+  </div>
+  <div style="height: 280px; padding: 7px 10px">
+    <div
+      #announcementTypes
+      style="
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        overflow-y: auto;
+        margin-bottom: 5px;
+      "
+    >
+      <app-filter-tag
+        *ngFor="let type of announcement.types"
+        [queryParamKey]="'types'"
+        [tagName]="type"
+        style="
+          height: 23px;
+          font-size: 12px;
+          margin: 1px;
+          border: solid 1px #ed6600;
+          border-radius: 5px;
+        "
+      >
+      </app-filter-tag>
+    </div>
+    <mat-divider></mat-divider>
+
+    <div
+      [innerHTML]="getAnnouncementDescriptionTruncated()"
+      class="announcement_description"
+    ></div>
+    <div
+      #announcementInstitutes
+      style="
+        border: solid 1px rgb(252, 6, 6);
+        border-radius: 5px;
+        padding: 2px 4px;
+        bottom: 16px;
+        left: 16px;
+        right: 16px;
+        position: absolute;
+        font-size: 11px;
+      "
+    >
+      <div>
+        <app-filter-tag
+          (click)="$event.stopPropagation()"
+          [queryParamKey]="'faculty'"
+          [tagName]="announcement.faculty"
+        >
+        </app-filter-tag>
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <app-filter-tag
+          [queryParamKey]="'institute'"
+          [tagName]="announcement.institute"
+        >
+        </app-filter-tag>
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <app-filter-tag
+          [queryParamKey]="'professorship'"
+          [tagName]="announcement.professorship"
+        >
+        </app-filter-tag>
+      </div>
+      <mat-divider></mat-divider>
+      <div>
+        <app-filter-tag
+          [queryParamKey]="'advisor'"
+          [tagName]="announcement.advisor"
+        >
+        </app-filter-tag>
+      </div>
+    </div>
+  </div>
+</div>

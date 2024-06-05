@@ -1,0 +1,229 @@
+<div
+  class="card shadow-sm"
+  style="overflow-y: auto; overflow-x: hidden; height: 80vh; border-radius: 15px"
+>
+  <div style="position: relative; height: 250px">
+    <a
+    aria-label="icon-button with a setting icon"
+    href="{{ announcement.editLinkToWordpressCms }}"
+    style="
+      color: white;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      background-color: transparent;
+      border: none;
+    "
+    target="_blank"
+  >
+    <mat-icon>settings</mat-icon>
+  </a>
+    <div
+      class="announcement_state"
+      [ngStyle]="{ 'background-color': getAnnouncementStateBackgroundColor() }"
+    >
+      <app-filter-tag [queryParamKey]="'state'" [tagName]="announcement.state">
+      </app-filter-tag>
+    </div>
+    <img
+      *ngIf="announcement.imageSrc"
+      src="{{ announcement.imageSrc }}"
+      style="object-fit: cover; width: 100%; height: 250px"
+      alt="image"
+    />
+    <div
+      *ngIf="!announcement.imageSrc"
+      style="height: 200px; width: 100%"
+    ></div>
+    <div class="announcement_title">
+      {{ announcement.title }}
+    </div>
+  </div>
+  <div class="card-body">
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-bottom: 5px;
+      "
+    >
+      <app-filter-tag
+        (click)="$event.stopPropagation()"
+        *ngFor="let type of announcement.types"
+        [queryParamKey]="'types'"
+        [tagName]="type"
+        style="
+          border: solid 1px #205ebd;
+          border-radius: 5px;
+          margin-right: 5px;
+          margin-bottom: 2px;
+        "
+      >
+      </app-filter-tag>
+    </div>
+    <mat-divider></mat-divider>
+    <div
+      [innerHTML]="announcement.description"
+      class="card-text announcement_description"
+      style="font-size: 15px; margin-top: 5px"
+    ></div>
+    <div *ngIf="announcement.keywords.length > 0">
+      <h6 style="font-weight: bold; font-size: 15px">Stichwörter zum Thema</h6>
+      <div
+        style="
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          margin-bottom: 5px;
+        "
+      >
+        <app-filter-tag
+          *ngFor="let type of announcement.keywords"
+          [queryParamKey]="'keywords'"
+          [tagName]="type"
+          style="
+            border: solid 1px grey;
+            border-radius: 5px;
+            margin-right: 5px;
+            background-color: lightgray;
+          "
+        >
+        </app-filter-tag>
+      </div>
+    </div>
+    <br />
+    <div
+      *ngIf="window.innerWidth > 550"
+      style="display: flex; flex-direction: row"
+    >
+      <div
+        style="
+          border: solid 1px grey;
+          border-radius: 5px;
+          padding: 2px;
+          margin: 1px;
+          width: 50%;
+        "
+      >
+        <h6>Betreuende Einrichtung</h6>
+        <mat-divider></mat-divider>
+        <app-filter-tag
+          [queryParamKey]="'faculty'"
+          [tagName]="announcement.faculty"
+        >
+        </app-filter-tag>
+        <mat-divider></mat-divider>
+        <app-filter-tag
+          [queryParamKey]="'institute'"
+          [tagName]="announcement.institute"
+        >
+        </app-filter-tag>
+        <mat-divider></mat-divider>
+        <app-filter-tag
+          [queryParamKey]="'professorship'"
+          [tagName]="announcement.professorship"
+        >
+        </app-filter-tag>
+      </div>
+      <div
+        style="
+          border: solid 1px grey;
+          border-radius: 5px;
+          padding: 2px;
+          margin: 1px;
+          width: 50%;
+        "
+      >
+        <h6>Betreuende Person</h6>
+        <mat-divider></mat-divider>
+        <app-filter-tag
+          (click)="$event.stopPropagation()"
+          [queryParamKey]="'advisor'"
+          [tagName]="announcement.advisor"
+        >
+        </app-filter-tag>
+        <a
+          (click)="$event.stopPropagation()"
+          *ngIf="announcement.advisorMail"
+          [href]="
+            'mailto:' +
+            announcement.advisorMail +
+            '?subject=Studentische Arbeit: ' +
+            announcement.title
+          "
+        >
+          {{ announcement.advisorMail }}
+        </a>
+      </div>
+    </div>
+    <div
+      *ngIf="window.innerWidth <= 550"
+      style="display: flex; flex-direction: row; flex-wrap: wrap"
+    >
+      <div
+        style="
+          border: solid 1px grey;
+          border-radius: 5px;
+          padding: 2px;
+          margin: 1px;
+          width: 100%;
+        "
+      >
+        <h6>Betreuende Einrichtung</h6>
+        <mat-divider></mat-divider>
+        <app-filter-tag
+          (click)="$event.stopPropagation()"
+          [queryParamKey]="'faculty'"
+          [tagName]="announcement.faculty"
+        >
+        </app-filter-tag>
+        <mat-divider></mat-divider>
+        <app-filter-tag
+          (click)="$event.stopPropagation()"
+          [queryParamKey]="'institute'"
+          [tagName]="announcement.institute"
+        >
+        </app-filter-tag>
+        <mat-divider></mat-divider>
+        <app-filter-tag
+          (click)="$event.stopPropagation()"
+          [queryParamKey]="'professorship'"
+          [tagName]="announcement.professorship"
+        >
+        </app-filter-tag>
+      </div>
+      <div
+        style="
+          border: solid 1px grey;
+          border-radius: 5px;
+          padding: 2px;
+          margin: 1px;
+          width: 100%;
+        "
+      >
+        <h6>Betreuende Person</h6>
+        <mat-divider></mat-divider>
+        <app-filter-tag
+          (click)="$event.stopPropagation()"
+          [queryParamKey]="'advisor'"
+          [tagName]="announcement.advisor"
+        >
+        </app-filter-tag>
+        <mat-divider></mat-divider>
+        <a
+          (click)="$event.stopPropagation()"
+          *ngIf="announcement.advisorMail"
+          [href]="
+            'mailto:' +
+            announcement.advisorMail +
+            '?subject=Studentische Arbeit: ' +
+            announcement.title
+          "
+        >
+          {{ announcement.advisorMail }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

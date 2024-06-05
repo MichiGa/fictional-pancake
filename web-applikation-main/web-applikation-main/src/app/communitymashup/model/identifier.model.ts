@@ -1,0 +1,17 @@
+import { Item } from 'src/app/app.component';
+import {CommunityMashupService} from '../communitymashup.service';
+
+export class Identifier extends Item {
+
+  // additional attributes
+  key: string;
+  value: string;
+
+  constructor(item: any, public override service: CommunityMashupService) {
+    super(item, service);
+    // attributes
+    this.key = item['key'];
+    this.value = item['value'];
+  }
+
+}
